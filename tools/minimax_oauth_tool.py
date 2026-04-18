@@ -17,12 +17,11 @@ from typing import Any, Dict, Optional, List
 from urllib.parse import urlparse, parse_qs
 
 import httpx
-from tools.registry import ToolRegistry
+from tools.registry import registry, ToolRegistry
 
 logger = logging.getLogger(__name__)
 
 # Get global registry instance
-registry = ToolRegistry()
 
 @dataclass
 class MiniMaxOAuthConfig:
