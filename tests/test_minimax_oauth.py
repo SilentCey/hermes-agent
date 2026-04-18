@@ -183,3 +183,27 @@ class TestMiniMaxOAuthStorage:
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])
+
+class TestMiniMaxOAuthIntegration:
+    """Integration tests for MiniMax OAuth."""
+    
+    def test_configuration_loading(self):
+        """Test configuration loading."""
+        from tools.minimax_oauth_config import get_region_config
+        
+        config = get_region_config("global")
+        assert config.region == "global"
+        assert config.client_id is not None
+        
+        cn_config = get_region_config("cn")
+        assert cn_config.region == "cn"
+        assert cn_config.auth_url != config.auth_url
+    
+    def test_region_isolation(self):
+        """Test region configurations are isolated."""
+        from tools.minimax_oauth_config import get_region_config
+        
+        global_config = get_region_config("global")
+        cn_config = get_region_config("cn")
+        
+        assert global_config.auth_url != cn_config.auth_url

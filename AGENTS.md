@@ -566,3 +566,34 @@ python -m pytest tests/ -q -n 4
 Worker count above 4 will surface test-ordering flakes that CI never sees.
 
 Always run the full suite before pushing changes.
+
+## MiniMax OAuth Integration
+
+### Available Tools:
+- `minimax_oauth_initiate` - Start OAuth 2.0 Device Code Flow
+- `minimax_oauth_token` - Exchange device code for access token  
+- `minimax_oauth_refresh` - Refresh expired tokens
+- `minimax_oauth_revoke` - Revoke tokens
+
+### Configuration:
+Set environment variables:
+```bash
+export MINIMAX_CLIENT_ID="your-client-id"
+export MINIMAX_AUTH_URL="https://api.minimax.io/v1/oauth/device_authorize"
+export MINIMAX_TOKEN_URL="https://api.minimax.io/v1/oauth/token"
+
+# China region:
+export MINIMAX_CN_CLIENT_ID="your-cn-client-id"
+export MINIMAX_CN_AUTH_URL="https://api.minimaxi.com/v1/oauth/device_authorize"
+export MINIMAX_CN_TOKEN_URL="https://api.minimaxi.com/v1/oauth/token"
+```
+
+### Usage:
+```python
+# Start OAuth flow
+result = minimax_oauth_initiate(region="global")
+# User goes to verification_uri with user_code
+
+# Get token after authorization
+token_result = minimax_oauth_token(device_code=result["device_code"])
+```
