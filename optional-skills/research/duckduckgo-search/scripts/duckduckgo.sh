@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # DuckDuckGo Search Helper Script
 # Wrapper around ddgs CLI with sensible defaults
 # Usage: ./duckduckgo.sh <query> [max_results]
@@ -25,4 +25,4 @@ if ! command -v ddgs &> /dev/null; then
     exit 1
 fi
 
-ddgs text -k "$QUERY" -m "$MAX_RESULTS"
+ddgs text -q "$QUERY" -m "$MAX_RESULTS"
